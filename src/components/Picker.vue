@@ -63,6 +63,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    disableEmojiCode: {
+      type: Boolean,
+      default: false,
+    },
     text: {
       type: String,
       default: '',
@@ -134,6 +138,7 @@ export default defineComponent({
       disabledGroups: props.disabledGroups,
       groupNames: { ...GROUP_NAMES, ...props.groupNames },
       disableSkinTones: props.disableSkinTones,
+      disableEmojiCode: props.disableEmojiCode,
       displayRecent: props.displayRecent,
       additionalGroups: props.additionalGroups,
       mode: props.mode,

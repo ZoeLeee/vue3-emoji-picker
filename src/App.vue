@@ -1,6 +1,11 @@
 <template>
   <h2>Default</h2>
-  <picker :native="false" :display-recent="true" @select="onSelect" />
+  <picker
+    :native="false"
+    :display-recent="true"
+    :disable-emoji-code="true"
+    @select="onSelect"
+  />
 
   <h2>Native + Dark Theme</h2>
   <picker theme="dark" :native="true" @select="onSelect" />

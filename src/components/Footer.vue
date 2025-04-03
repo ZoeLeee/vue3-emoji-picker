@@ -1,18 +1,20 @@
 <template>
   <div class="v3-footer" @mouseleave="updateSkinToneState(false)">
     <div class="v3-foot-left">
-      <span :class="platform" class="v3-icon">
-        <span v-if="native || hasError">{{ unicodeToEmoji(emoji.r) }}</span>
-        <img
-          v-else
-          :alt="unicodeToEmoji(emoji.r)"
-          :src="emoji.src"
-          @error="hasError = true"
-        />
-      </span>
-      <span class="v3-text">
-        :{{ emoji[EMOJI_NAME_KEY][1] || emoji[EMOJI_NAME_KEY][0] }}:
-      </span>
+      <template v-if="hasEmojiCode">
+        <span :class="platform" class="v3-icon">
+          <span v-if="native || hasError">{{ unicodeToEmoji(emoji.r) }}</span>
+          <img
+            v-else
+            :alt="unicodeToEmoji(emoji.r)"
+            :src="emoji.src"
+            @error="hasError = true"
+          />
+        </span>
+        <span class="v3-text">
+          :{{ emoji[EMOJI_NAME_KEY][1] || emoji[EMOJI_NAME_KEY][0] }}:
+        </span>
+      </template>
     </div>
 
     <template v-if="hasSkinTones">
@@ -65,6 +67,7 @@ export default defineComponent({
       () => state.options.staticTexts.skinTone || 'Skin tone'
     )
     const hasSkinTones = computed(() => !state.options.disableSkinTones)
+    const hasEmojiCode = computed(() => !state.options.disableEmojiCode)
     const platform = isMac() ? 'is-mac' : ''
 
     const emoji = computed<any>(() => {
@@ -110,6 +113,7 @@ export default defineComponent({
       unicodeToEmoji,
       platform,
       hasError,
+      hasEmojiCode,
     }
   },
 })
