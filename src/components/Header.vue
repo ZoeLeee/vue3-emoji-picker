@@ -11,7 +11,7 @@
         }"
         @click="updateActiveGroup(group.key)"
       >
-        <span :title="group.title" class="v3-icon">
+        <span :title="groupNames[group.key] || group.title" class="v3-icon">
           <img :src="icons[group.key]" alt="" />
         </span>
       </button>
@@ -27,7 +27,7 @@
 /**
  * External dependencies
  */
-import { computed, defineComponent, inject } from 'vue'
+import { computed, defineComponent, inject, toRaw } from 'vue'
 
 /**
  * Internal dependencies
@@ -52,6 +52,8 @@ export default defineComponent({
   name: 'Header',
   setup(props) {
     const { state, updateSearch, updateActiveGroup } = inject('store') as Store
+
+    const groupNames = toRaw(state.options.groupNames)
 
     const hasSearch = computed(() => !state.options.hideSearch)
     const hasGroupIcons = computed(() => !state.options.hideGroupIcons)
@@ -92,6 +94,7 @@ export default defineComponent({
       hasSearch,
       hasGroupIcons,
       placeholder,
+      groupNames,
       icons: {
         smileys_people,
         animals_nature,
